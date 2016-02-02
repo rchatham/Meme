@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // Class tha represents a meme with a image, top and bottom texts
-class Meme: NSObject {
+struct Meme {
     
     // Meme elements
     var top: String
@@ -19,11 +19,4 @@ class Meme: NSObject {
     
     // The actual meme image. It was built using the meme elemets
     var memedImage: UIImage
-    
-    init(top: String, bottom: String, image: UIImage, memedImage: UIImage) {
-        self.top = top
-        self.bottom = bottom
-        self.image = image
-        self.memedImage = memedImage
-    }
 }

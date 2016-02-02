@@ -27,7 +27,7 @@ class MemeTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Setup the edit buttom in the navigation bar
-        self.navigationItem.leftBarButtonItem = self.editButtonItem()
+        navigationItem.leftBarButtonItem = self.editButtonItem()
     }
     
     override func viewWillAppear(animated: Bool) {

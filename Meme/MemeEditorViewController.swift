@@ -206,7 +206,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     // Saves the meme correctly. Is the meme is new it saves a new one in the shared model
     // If the meme already exists the method only updates its values
     func saveMeme(memedImage: UIImage) {
-        if let existingMeme = meme {
+        if var existingMeme = meme {
             // Meme exists. Just change its existing properties
             existingMeme.top = topTextField.text!
             existingMeme.bottom = bottomTextField.text!

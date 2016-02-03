@@ -111,6 +111,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
         if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imageView.image = originalImage
+            imageView.contentMode = UIViewContentMode.ScaleAspectFit
             // Enable share button now that we have an image
             shareButton.enabled = true
         }

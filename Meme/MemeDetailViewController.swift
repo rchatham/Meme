@@ -23,19 +23,19 @@ class MemeDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: "editMeme:")
+        imageView?.image = meme.memedImage as UIImage
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.imageView.image = meme.memedImage
     }
     
     // MARK: -
     // MARK: Actions
     
     @IBAction func deleteMeme(sender: UIButton) {
-        MemeManager.sharedInstance.deleteMemeAtIndex(self.memeIndex)
-        self.navigationController?.popViewControllerAnimated(true)
+        MemeManager.sharedInstance.deleteMemeAtIndex(memeIndex)
+        navigationController?.popViewControllerAnimated(true)
     }
     
     func editMeme(sender: UIBarButtonItem) {

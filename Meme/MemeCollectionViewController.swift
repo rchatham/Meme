@@ -59,7 +59,7 @@ class MemeCollectionViewController: UIViewController, UICollectionViewDataSource
         destinationController.meme = meme
         destinationController.memeIndex = indexPath.row
         
-        self.navigationController?.pushViewController(destinationController, animated: true)
+        navigationController?.pushViewController(destinationController, animated: true)
     }
     
     // MARK: -
@@ -75,6 +75,6 @@ class MemeCollectionViewController: UIViewController, UICollectionViewDataSource
     func presentMemeEditor() {
         let memeEditorController = storyboard!.instantiateViewControllerWithIdentifier("MemeEditor") as! MemeEditorViewController
         
-        self.presentViewController(memeEditorController, animated: true, completion: nil)
+        presentViewController(memeEditorController, animated: true, completion: nil)
     }
 }

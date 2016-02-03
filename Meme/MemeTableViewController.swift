@@ -27,7 +27,7 @@ class MemeTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Setup the edit buttom in the navigation bar
-        navigationItem.leftBarButtonItem = self.editButtonItem()
+        navigationItem.leftBarButtonItem = editButtonItem()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -106,7 +106,7 @@ class MemeTableViewController: UITableViewController {
         destinationController.meme = meme
         destinationController.memeIndex = indexPath.row
         
-        self.navigationController?.pushViewController(destinationController, animated: true)
+        navigationController?.pushViewController(destinationController, animated: true)
     }
     
     // MARK: -
@@ -140,7 +140,7 @@ class MemeTableViewController: UITableViewController {
         if let existingMeme = meme {
             memeEditorController.meme = existingMeme
         }
-        self.presentViewController(memeEditorController, animated: true, completion: nil)
+        presentViewController(memeEditorController, animated: true, completion: nil)
     }
     
     // Creates a string to display as the meme summary in a cell

@@ -9,27 +9,14 @@
 import Foundation
 
 class MemeManager: NSObject {
-    
-    // Singleton pattern: http://code.martinrue.com/posts/the-singleton-pattern-in-swift
-    class var sharedInstance: MemeManager {
-        struct Static {
-            static var instance: MemeManager?
-            static var token: dispatch_once_t = 0
-        }
-        
-        dispatch_once(&Static.token) {
-            Static.instance = MemeManager()
-        }
-        
-        return Static.instance!
-    }
-    
+
+    static var shared: MemeManager = MemeManager()
     
     // Shared model representing the list of sent memes
     var memes = [Meme]()
     
     func deleteMemeAtIndex(index: Int) {
-        memes.removeAtIndex(index)
+        memes.remove(at: index)
     }
     
     func appendMeme(meme: Meme) {

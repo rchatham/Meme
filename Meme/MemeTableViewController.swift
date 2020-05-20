@@ -27,18 +27,18 @@ class MemeTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Setup the edit buttom in the navigation bar
-        navigationItem.leftBarButtonItem = editButtonItem()
+        navigationItem.leftBarButtonItem = editButtonItem
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // Refresh the local memes
-        memes = MemeManager.sharedInstance.memes
+        memes = MemeManager.shared.memes
         // Refresh the table list
         tableView.reloadData()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // The editor should be presented if there are no sent memes
         if memes.count == 0 && editorNotPresented {
@@ -51,46 +51,46 @@ class MemeTableViewController: UITableViewController {
     // MARK: -
     // MARK: UITableViewDataSource
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return memes.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("MemeTableCell") as! MemeTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MemeTableCell") as! MemeTableViewCell
         
         let meme = memes[indexPath.row]
         
         cell.memeImageView.image = meme.memedImage
-        cell.memeLabel.text = buildMemeTextSummary(meme)
+        cell.memeLabel.text = buildMemeTextSummary(meme: meme)
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
-        case .Delete:
-            removeMemeAtIndexPath(indexPath)
+        case .delete:
+            removeMemeAtIndexPath(indexPath: indexPath)
         default:
             return
         }
     }
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
     // MARK: -
     // MARK: UITableViewDelegate
     
-    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         // Edit action
-        let edit = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: "Edit", handler: { (action, indexPath) -> Void in
+        let edit = UITableViewRowAction(style: UITableViewRowActionStyle.normal, title: "Edit", handler: { (action, indexPath) -> Void in
             let meme = self.memes[indexPath.row]
-            self.presentMemeEditor(meme)
+            self.presentMemeEditor(meme: meme)
         })
         // Delete action
-        let delete = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "Delete", handler: { (action, indexPath) -> Void in
-            self.removeMemeAtIndexPath(indexPath)
+        let delete = UITableViewRowAction(style: UITableViewRowActionStyle.default, title: "Delete", handler: { (action, indexPath) -> Void in
+            self.removeMemeAtIndexPath(indexPath: indexPath)
         })
         
         let arrayofactions: Array = [delete, edit]
@@ -99,10 +99,10 @@ class MemeTableViewController: UITableViewController {
         
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let meme = memes[indexPath.row]
         
-        let destinationController = storyboard?.instantiateViewControllerWithIdentifier("MemeDetail") as! MemeDetailViewController
+        let destinationController = storyboard?.instantiateViewController(withIdentifier: "MemeDetail") as! MemeDetailViewController
         destinationController.meme = meme
         destinationController.memeIndex = indexPath.row
         
@@ -122,31 +122,31 @@ class MemeTableViewController: UITableViewController {
     // Presents the editor without an existing meme
     // This is just a wrapper method for better readability
     func presentCleanMemeEditor() {
-        presentMemeEditor(nil)
+        presentMemeEditor(meme: nil)
     }
     
     // Correclty removes the meme from the model and the table
-    func removeMemeAtIndexPath(indexPath: NSIndexPath) {
+    func removeMemeAtIndexPath(indexPath: IndexPath) {
         // remove the deleted item from the model
-        MemeManager.sharedInstance.deleteMemeAtIndex(indexPath.row)
-        memes = MemeManager.sharedInstance.memes
+        MemeManager.shared.deleteMemeAtIndex(index: indexPath.row)
+        memes = MemeManager.shared.memes
         // remove the deleted item from the `UITableView`
-        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        tableView.deleteRows(at: [indexPath], with: .fade)
     }
     
     // Presents the meme editor. Uses a existing meme if is provided as a parameter
     func presentMemeEditor(meme: Meme?) {
-        let memeEditorController = storyboard!.instantiateViewControllerWithIdentifier("MemeEditor") as! MemeEditorViewController
+        let memeEditorController = storyboard!.instantiateViewController(withIdentifier: "MemeEditor") as! MemeEditorViewController
         if let existingMeme = meme {
             memeEditorController.meme = existingMeme
         }
-        presentViewController(memeEditorController, animated: true, completion: nil)
+        present(memeEditorController, animated: true, completion: nil)
     }
     
     // Creates a string to display as the meme summary in a cell
     func buildMemeTextSummary(meme: Meme) -> String {
-        let topCount = meme.top.characters.count
-        let bottomCount = meme.bottom.characters.count
+//        let topCount = meme.top.count
+//        let bottomCount = meme.bottom.count
         
         let topSubstring = meme.top
         let bottomSubstring = meme.bottom

@@ -1,0 +1,36 @@
+PODS:
+  - DeepDiff (2.3.1)
+  - Giphy (1.2.8):
+    - DeepDiff
+    - libwebp
+    - PINCache
+  - libwebp (1.1.0):
+    - libwebp/demux (= 1.1.0)
+    - libwebp/mux (= 1.1.0)
+    - libwebp/webp (= 1.1.0)
+  - libwebp/demux (1.1.0):
+    - libwebp/webp
+  - libwebp/mux (1.1.0):
+    - libwebp/demux
+  - libwebp/webp (1.1.0)
+  - PINCache (2.3)
+
+DEPENDENCIES:
+  - Giphy
+
+SPEC REPOS:
+  trunk:
+    - DeepDiff
+    - Giphy
+    - libwebp
+    - PINCache
+
+SPEC CHECKSUMS:
+  DeepDiff: e5ae6c50d0321568e4508cec5930b9f10bb293fc
+  Giphy: 0e6c7c127eb22d0b419ae68ccae6d92c827ea034
+  libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
+  PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
+
+PODFILE CHECKSUM: d00cbd9e49cbcc3518fa0ce37a0a553111fd7b40
+
+COCOAPODS: 1.9.1

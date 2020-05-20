@@ -22,12 +22,12 @@ class MemeDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: "editMeme:")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editMeme(sender:)))
         imageView?.image = meme.memedImage as UIImage
-        imageView.contentMode = UIViewContentMode.ScaleAspectFit
+        imageView.contentMode = UIViewContentMode.scaleAspectFit
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
@@ -35,13 +35,13 @@ class MemeDetailViewController: UIViewController {
     // MARK: Actions
     
     @IBAction func deleteMeme(sender: UIButton) {
-        MemeManager.sharedInstance.deleteMemeAtIndex(memeIndex)
-        navigationController?.popViewControllerAnimated(true)
+        MemeManager.shared.deleteMemeAtIndex(index: memeIndex)
+        navigationController?.popViewController(animated: true)
     }
     
-    func editMeme(sender: UIBarButtonItem) {
-        let memeEditorController = storyboard!.instantiateViewControllerWithIdentifier("MemeEditor") as! MemeEditorViewController
+    @objc func editMeme(sender: UIBarButtonItem) {
+        let memeEditorController = storyboard!.instantiateViewController(withIdentifier: "MemeEditor") as! MemeEditorViewController
         memeEditorController.meme = meme
-        presentViewController(memeEditorController, animated: true, completion: nil)
+        present(memeEditorController, animated: true, completion: nil)
     }
 }
